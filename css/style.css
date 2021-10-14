@@ -1,11 +1,3 @@
-@font-face {
-  font-family: Raleway-Medium;
-  src: url("../fonts/raleway_medium/Raleway-Medium.eot");
-  src: url("../fonts/raleway_medium/Raleway-Medium.eot?#iefix") format('embedded-opentype'), url("../fonts/raleway_medium/Raleway-Medium.woff") format('woff'), url("../fonts/raleway_medium/Raleway-Medium.ttf") format('truetype'), url("../fonts/raleway_medium/Raleway-Medium.svg#iconfont") format('svg');
-}
-font-weight medium {
-  font-style: normal;
-}
 @charset "utf-8";
 @font-face {
   font-family: feathericon;
@@ -887,7 +879,7 @@ html {
 body {
   position: relative;
   background-color: #fff;
-  font-family: "Raleway-Medium", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 1.4rem;
   line-height: 1.7;
   color: #1e3e3f;
@@ -981,13 +973,6 @@ img {
   margin: 1.5rem 0;
   line-height: line-height;
 }
-.article-entry ul,
-.article-entry ol {
-  padding-left: 2em;
-}
-.article-entry ul {
-  list-style-type: circle;
-}
 .article-entry p,
 .article-entry table,
 .article-entry blockquote {
@@ -1023,20 +1008,12 @@ img {
   background-color: rgba(230,230,230,0.25);
 }
 .article-entry blockquote {
-  position: relative;
   display: block;
-  padding: 0 1.5rem 0 4.5rem;
+  padding: 0 1.5rem;
   width: 100%;
   overflow: auto;
+  border-left: 0.3rem #9c8079 solid;
   color: #5c6b72;
-}
-.article-entry blockquote:before {
-  content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjQgMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMCAySDQuMWMtLjQgMC0uNy4zLS43LjdMMiAyMS4yYzAgLjQuMy44LjguOGgxLjZjLjMgMCAuNi0uMi43LS41TDEwLjcgM2MuMS0uNS0uMi0xLS43LTF6TTIxLjIgMmgtNS44Yy0uNCAwLS43LjMtLjguN2wtMS40IDE4LjVjMCAuNC4zLjguOC44aDEuNmMuMyAwIC42LS4yLjctLjVMMjIgM2MuMS0uNS0uMi0xLS44LTF6IiBmaWxsPSIjQURCNUJEIi8+PC9zdmc+");
-  display: block;
-  width: 3rem;
-  position: absolute;
-  left: 0;
-  top: 0;
 }
 .article-entry blockquote > :first-child {
   margin-top: 0;
@@ -1064,16 +1041,6 @@ img {
 }
 .content.on {
   transform: translateX(-10rem);
-}
-.content .copy-btn {
-  position: absolute;
-  font-size: 12px;
-  color: rgba(140,140,140,0.8);
-  transition: color;
-  cursor: pointer;
-}
-.content .copy-btn:hover {
-  color: #8c8c8c;
 }
 .sidebar {
   position: fixed;
@@ -1147,9 +1114,6 @@ img {
   }
   .local-search {
     width: 70rem;
-  }
-  .card-quote {
-    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (min-width: 1200px) {
@@ -1939,7 +1903,7 @@ a.toc-link {
   position: absolute;
   top: 50%;
   left: -3.5rem;
-  margin-top: -0.25rem;
+  margin-top: -0.5rem;
   width: 1rem;
   height: 1rem;
   -webkit-border-radius: 1rem;
@@ -2344,76 +2308,6 @@ pre .javascript .function {
   100% {
     transform: translateY(-100%);
   }
-}
-.card-quote {
-  display: grid;
-  grid-gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-.card-quote blockquote {
-  position: relative;
-  margin: 0;
-  padding: 1.5rem;
-  padding-left: 6rem;
-  overflow: auto;
-  border-left: none;
-  border: 0.1rem #e6e6e6 solid;
-  -webkit-border-radius: 0.4rem;
-  -moz-border-radius: 0.4rem;
-  border-radius: 0.4rem;
-  transition: all 0.3s ease-in-out;
-  line-height: 1.4;
-}
-.card-quote blockquote:before {
-  content: none;
-}
-.card-quote blockquote p:first-child {
-  position: absolute;
-  top: 50%;
-  left: 1.5rem;
-  transform: translateY(-50%);
-}
-.card-quote blockquote p:first-child img {
-  height: 3.2rem;
-  width: 3.2rem;
-}
-.card-quote blockquote h3,
-.card-quote blockquote h4,
-.card-quote blockquote h5 {
-  margin: 0;
-}
-.card-quote blockquote h3 + p,
-.card-quote blockquote h4 + p,
-.card-quote blockquote h5 + p {
-  margin-top: 0;
-  color: #adb5bd;
-  font-size: small;
-}
-.card-quote blockquote a {
-  opacity: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  text-align: center;
-  background: rgba(255,255,255,0.75);
-  color: #172d3e;
-  text-decoration: none;
-  font-size: small;
-  transition: all 0.3s ease-in-out;
-}
-.card-quote blockquote:hover {
-  transform: translateY(-0.25rem);
-  box-shadow: 0 1rem 3rem 0.01rem rgba(23,45,62,0.1);
-  border-color: #f4f4f4;
-}
-.card-quote blockquote:hover a {
-  opacity: 1;
 }
 .navbar {
   position: relative;
