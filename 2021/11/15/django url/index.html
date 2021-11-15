@@ -50,7 +50,7 @@
     
     <div class="article-meta">
       <a href="/2021/11/15/django%20url/" class="article-date">
-  <time datetime="2021-11-15T07:55:37.992Z" itemprop="datePublished">2021-11-15</time>
+  <time datetime="2021-11-15T08:06:20.213Z" itemprop="datePublished">2021-11-15</time>
 </a>
       
     </div>
@@ -67,18 +67,18 @@
       
       
       <p>动态 URL 传参</p>
-<h1 id="hello-app-urls-py"><a href="#hello-app-urls-py" class="headerlink" title="hello_app/urls.py"></a>hello_app/urls.py</h1><p>from django.urls import path</p>
+<h3 id="hello-app-urls-py"><a href="#hello-app-urls-py" class="headerlink" title="hello_app/urls.py"></a>hello_app/urls.py</h3><p>from django.urls import path</p>
 <p>from . import views</p>
 <p>urlpatterns = [<br>    path(‘articles/<a href="int:year">int:year</a>/‘, views.year_archive),<br>    path(‘articles/<a href="int:year">int:year</a>/<a href="int:month">int:month</a>/‘, views.month_archive),<br>    path(‘articles/<a href="int:year">int:year</a>/<a href="int:month">int:month</a>/<a href="slug:title">slug:title</a>/‘, views.article_title),<br>]</p>
 <p>使用正则表达式</p>
-<h1 id="hello-app-urls-py-1"><a href="#hello-app-urls-py-1" class="headerlink" title="hello_app/urls.py"></a>hello_app/urls.py</h1><p>from django.urls import re_path</p>
+<h3 id="hello-app-urls-py-1"><a href="#hello-app-urls-py-1" class="headerlink" title="hello_app/urls.py"></a>hello_app/urls.py</h3><p>from django.urls import re_path</p>
 <p>from . import views</p>
 <p>urlpatterns = [<br>    re_path(‘articles/(?P<year>[0-9]{4})/‘, views.year_archive),<br>    re_path(‘articles/(?P<year>[0-9]{4})/(?P<month>0[1-9]|1[0-2])/‘, views.month_archive),<br>    re_path(‘articles/(?P<year>[0-9]{4})/(?P<month>0[1-9]|1[0-2])/(?P<title>[a-zA-Z0-9-_]+)/‘, views.article_title),<br>]</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/15/django%20url/" data-id="ckw0dtnu900018sca5vyoa2hz" class="article-share-link">
+      <a data-url="http://example.com/2021/11/15/django%20url/" data-id="ckw0duqad0001e7ca5j6o1anl" class="article-share-link">
         Share
       </a>
       
@@ -90,19 +90,10 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/11/15/celery/" class="article-nav-link">
-    <strong class="article-nav-caption">Newer</strong>
-    <div class="article-nav-title">
-      
-      celery
-      
-    </div>
-  </a>
   
-  
-  <a href="/2021/11/15/gitflow/" class="article-nav-link">
+  <a href="/2021/11/15/testhexo/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title"></div>
+    <div class="article-nav-title">testhexo</div>
   </a>
   
 </nav>
