@@ -62,6 +62,168 @@
     <h1 class="page-type-title"></h1>
     
     
+    <article id="post-general view set" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/15/general%20view%20set/">general viewset</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/11/15/general%20view%20set/" class="article-date">
+  <time datetime="2021-11-15T07:55:38.004Z" itemprop="datePublished">2021-11-15</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>筛选的时候传入的参数通过query param传入</p>
+<p>调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/15/general%20view%20set/" data-id="ckw0dcomh0003facaahkf1rvy" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-celery" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/15/celery/">celery</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/11/15/celery/" class="article-date">
+  <time datetime="2021-11-15T07:55:37.998Z" itemprop="datePublished">2021-11-15</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>修改代码要重启celery</p>
+<p>需要在celery_tasks/tasks<br>里面定义自己的任务</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/15/celery/" data-id="ckw0dcom00000facaeorgee9c" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-django url" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/15/django%20url/">django url 动态传参</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/11/15/django%20url/" class="article-date">
+  <time datetime="2021-11-15T07:55:37.992Z" itemprop="datePublished">2021-11-15</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>动态 URL 传参</p>
+<h1 id="hello-app-urls-py"><a href="#hello-app-urls-py" class="headerlink" title="hello_app/urls.py"></a>hello_app/urls.py</h1><p>from django.urls import path</p>
+<p>from . import views</p>
+<p>urlpatterns = [<br>    path(‘articles/<a href="int:year">int:year</a>/‘, views.year_archive),<br>    path(‘articles/<a href="int:year">int:year</a>/<a href="int:month">int:month</a>/‘, views.month_archive),<br>    path(‘articles/<a href="int:year">int:year</a>/<a href="int:month">int:month</a>/<a href="slug:title">slug:title</a>/‘, views.article_title),<br>]</p>
+<p>使用正则表达式</p>
+<h1 id="hello-app-urls-py-1"><a href="#hello-app-urls-py-1" class="headerlink" title="hello_app/urls.py"></a>hello_app/urls.py</h1><p>from django.urls import re_path</p>
+<p>from . import views</p>
+<p>urlpatterns = [<br>    re_path(‘articles/(?P<year>[0-9]{4})/‘, views.year_archive),<br>    re_path(‘articles/(?P<year>[0-9]{4})/(?P<month>0[1-9]|1[0-2])/‘, views.month_archive),<br>    re_path(‘articles/(?P<year>[0-9]{4})/(?P<month>0[1-9]|1[0-2])/(?P<title>[a-zA-Z0-9-_]+)/‘, views.article_title),<br>]</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/15/django%20url/" data-id="ckw0dcomc0001facagmcdeo5g" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
     <article id="post-gitflow" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -89,135 +251,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="http://example.com/2021/11/15/gitflow/" data-id="ckw0dcomg0002facabxdhhh2j" class="article-share-link">
-        Share
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-django url" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/11/11/django%20url/" class="article-date">
-  <time datetime="2021-11-11T02:32:09.274Z" itemprop="datePublished">2021-11-11</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>动态 URL 传参</p>
-<h1 id="hello-app-urls-py"><a href="#hello-app-urls-py" class="headerlink" title="hello_app/urls.py"></a>hello_app/urls.py</h1><p>from django.urls import path</p>
-<p>from . import views</p>
-<p>urlpatterns = [<br>    path(‘articles/<a href="int:year">int:year</a>/‘, views.year_archive),<br>    path(‘articles/<a href="int:year">int:year</a>/<a href="int:month">int:month</a>/‘, views.month_archive),<br>    path(‘articles/<a href="int:year">int:year</a>/<a href="int:month">int:month</a>/<a href="slug:title">slug:title</a>/‘, views.article_title),<br>]</p>
-<p>使用正则表达式</p>
-<h1 id="hello-app-urls-py-1"><a href="#hello-app-urls-py-1" class="headerlink" title="hello_app/urls.py"></a>hello_app/urls.py</h1><p>from django.urls import re_path</p>
-<p>from . import views</p>
-<p>urlpatterns = [<br>    re_path(‘articles/(?P<year>[0-9]{4})/‘, views.year_archive),<br>    re_path(‘articles/(?P<year>[0-9]{4})/(?P<month>0[1-9]|1[0-2])/‘, views.month_archive),<br>    re_path(‘articles/(?P<year>[0-9]{4})/(?P<month>0[1-9]|1[0-2])/(?P<title>[a-zA-Z0-9-_]+)/‘, views.article_title),<br>]</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/11/django%20url/" data-id="ckw0dcomc0001facagmcdeo5g" class="article-share-link">
-        Share
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-general view set" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/10/21/general%20view%20set/" class="article-date">
-  <time datetime="2021-10-21T08:37:45.070Z" itemprop="datePublished">2021-10-21</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>筛选的时候传入的参数通过query param传入</p>
-<p>调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/10/21/general%20view%20set/" data-id="ckw0dcomh0003facaahkf1rvy" class="article-share-link">
-        Share
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-celery" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/10/20/celery/" class="article-date">
-  <time datetime="2021-10-20T08:16:43.288Z" itemprop="datePublished">2021-10-20</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>修改代码要重启celery</p>
-<p>需要在celery_tasks/tasks<br>里面定义自己的任务</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/10/20/celery/" data-id="ckw0dcom00000facaeorgee9c" class="article-share-link">
         Share
       </a>
       
