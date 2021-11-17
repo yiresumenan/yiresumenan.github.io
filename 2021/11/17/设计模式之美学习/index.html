@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    git flow 工作流 |
+    设计模式之美学习 |
     
     Hexo</title>
   
@@ -30,7 +30,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-gitflow" class="article article-type-post" itemscope
+  <article id="post-设计模式之美学习" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  git flow 工作流
+  设计模式之美学习
 </h1>
 
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/11/15/gitflow/" class="article-date">
-  <time datetime="2021-11-15T08:41:41.556Z" itemprop="datePublished">2021-11-15</time>
+      <a href="/2021/11/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2021-11-17T01:55:39.000Z" itemprop="datePublished">2021-11-17</time>
 </a>
       
     </div>
@@ -64,13 +64,14 @@
       
       
       
-      <p>人数较多的时候要用，人数少其实没有必要，这个东西不是绝对的</p>
-<p>极客时间 左耳朵耗子 20 Git协同工作流，你该怎么选</p>
+      <p>记录学习极客时间王争的课程《设计模式之美》<br>07哪些代码设计看似是面向对象，实际是面向过程的？<br>讲了给类的私有属性定义setattr方法导致私有属性被修改，其实如果是自己用的方法，一般<br>不会调用错误，但是会有隐患，作者提出了一种解决方法：</p>
+<p>你可能还会说，<br>我有一个需求，<br>需要查看购物车中都买了啥，<br>那这个时候，<br>ShoppingCart<br>类不得不提供 items 属性的 getter 方法了，<br>那又该怎么办才好呢？<br>如果你熟悉 Java 语言，<br>那解决这个问题的方法还是挺简单的。<br>我们可以通过 Java 提供的<br>Collections.unmodifiableList() 方法，<br>让 getter 方法返回一个不可被修改的<br>UnmodifiableList 集合容器，<br>而这个容器类重写了 List 容器中跟修改数据相关的方法，<br>比<br>如 add()、<br>clear() 等方法。<br>一旦我们调用这些修改数据的方法，<br>代码就会抛出<br>UnsupportedOperationException 异常，<br>这样就避免了容器中的数据被修改。<br>具体的代<br>码实现如下所示。</p>
+<p>这有点像python里面的frozen dict 和queryset params，在很多开源库里面<br>会这样限制，禁止修改某部分变量，如果强行修改就会报错，防止发生不可预知的错误。<br>这里涉及到一个代价问题，如果像最前面那种不考虑其他人调用的情况，写成过程式的代码<br>也没有问题，因为如果要考虑调用问题就要引入很多安全问题考虑。但是如果说这些考虑<br>是可以不增加工作量的话，还是可以加入的，这也许就是设计模式所提倡的把。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/15/gitflow/" data-id="ckw0dy07j0003oyca8v7p8t3c" class="article-share-link">
+      <a data-url="http://example.com/2021/11/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%E5%AD%A6%E4%B9%A0/" data-id="ckw2vuohe0000ehca8nv5azlx" class="article-share-link">
         Share
       </a>
       
@@ -82,19 +83,10 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/11/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
-    <strong class="article-nav-caption">Newer</strong>
-    <div class="article-nav-title">
-      
-      设计模式之美学习
-      
-    </div>
-  </a>
   
-  
-  <a href="/2021/11/15/django%20url/" class="article-nav-link">
+  <a href="/2021/11/15/gitflow/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">django url 动态传参</div>
+    <div class="article-nav-title">git flow 工作流</div>
   </a>
   
 </nav>
