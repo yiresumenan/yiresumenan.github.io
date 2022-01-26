@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    general viewset |
+    Django Logging |
     
     Hexo</title>
   
@@ -30,7 +30,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-general view set" class="article article-type-post" itemscope
+  <article id="post-Django-Logging" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  general viewset
+  Django Logging
 </h1>
 
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/11/17/general%20view%20set/" class="article-date">
-  <time datetime="2021-11-17T03:30:51.627Z" itemprop="datePublished">2021-11-17</time>
+      <a href="/2021/11/19/Django-Logging/" class="article-date">
+  <time datetime="2021-11-19T03:16:41.000Z" itemprop="datePublished">2021-11-19</time>
 </a>
       
     </div>
@@ -58,19 +58,23 @@
 
     
     
-<div class="tocbot"></div>
-
     
 
     <div class="article-entry" itemprop="articleBody">
       
       
       
-      <h3 id="筛选的时候传入的参数通过query-param传入"><a href="#筛选的时候传入的参数通过query-param传入" class="headerlink" title="筛选的时候传入的参数通过query param传入"></a>筛选的时候传入的参数通过query param传入</h3><h3 id="调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc"><a href="#调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc" class="headerlink" title="调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc"></a>调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc</h3>
+      <p>logging是一个用得很频繁的功能，之前都是用的封装好的，并不了解内部运行的原理。现在梳理一下</p>
+<p>log等级包括：<br>DEBUG: Low level system information for debugging purposes<br>INFO: General system information<br>WARNING: Information describing a minor problem that has occurred.<br>ERROR: Information describing a major problem that has occurred.<br>CRITICAL: Information describing a critical problem that has occurred.</p>
+<p>logger&gt;handler<br>中间可以mix filter</p>
+<p>生成一个logger实例，__name__是指当前模块<br>logger = logging.getLogger(<strong>name</strong>)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line"></span><br><span class="line">LOGGING = &#123;</span><br><span class="line">    &#x27;version&#x27;: 1,</span><br><span class="line">    &#x27;disable_existing_loggers&#x27;: False,</span><br><span class="line">    &#x27;handlers&#x27;: &#123;</span><br><span class="line">        &#x27;console&#x27;: &#123;</span><br><span class="line">            &#x27;class&#x27;: &#x27;logging.StreamHandler&#x27;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x27;root&#x27;: &#123;</span><br><span class="line">        &#x27;handlers&#x27;: [&#x27;console&#x27;],</span><br><span class="line">        &#x27;level&#x27;: &#x27;WARNING&#x27;,</span><br><span class="line">    &#125;,  # root是个根logger</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This configures the parent root logger to send messages with the WARNING level</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/17/general%20view%20set/" data-id="ckyviijvs0003m1caeq4uc1ye" class="article-share-link">
+      <a data-url="http://example.com/2021/11/19/Django-Logging/" data-id="ckyviijvi0000m1caeo8v4s6j" class="article-share-link">
         Share
       </a>
       
@@ -82,19 +86,19 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/11/19/Django-Logging/" class="article-nav-link">
+  <a href="/2022/01/17/nginx%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/" class="article-nav-link">
     <strong class="article-nav-caption">Newer</strong>
     <div class="article-nav-title">
       
-      Django Logging
+      nginx知识点梳理
       
     </div>
   </a>
   
   
-  <a href="/2021/11/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
+  <a href="/2021/11/17/general%20view%20set/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">设计模式之美学习</div>
+    <div class="article-nav-title">general viewset</div>
   </a>
   
 </nav>

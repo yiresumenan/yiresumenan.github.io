@@ -62,6 +62,179 @@
     <h1 class="page-type-title"></h1>
     
     
+    <article id="post-mysql索引知识" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/26/mysql%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86/">mysql索引知识</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/26/mysql%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time datetime="2022-01-26T09:38:38.000Z" itemprop="datePublished">2022-01-26</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h2 id="索引的数据类型"><a href="#索引的数据类型" class="headerlink" title="索引的数据类型"></a>索引的数据类型</h2><p>###b+树<br>innodb默认的索引类型,适合用于范围查询</p>
+<p>###hash索引<br>等值查询效率更高,但是无法进行order by</p>
+<p>大部分的数据库都是innodb引擎,但是有些文档说innodb是不支持这种索引<br>官方做了一些解释:<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-adaptive-hash.html">https://dev.mysql.com/doc/refman/5.7/en/innodb-adaptive-hash.html</a><br>innodb用的是一种适应性的哈希索引,根据是否可以优化查询自动将b+tree索引转化成hash索引<br>所以建索引的时候不用指定类型,建索引的语句如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table users</span><br><span class="line">add index `idx_name` (`name`);</span><br></pre></td></tr></table></figure>
+
+<h2 id="索引的创建经验"><a href="#索引的创建经验" class="headerlink" title="索引的创建经验"></a>索引的创建经验</h2><h3 id="自增id作为作为主键"><a href="#自增id作为作为主键" class="headerlink" title="自增id作为作为主键"></a>自增id作为作为主键</h3><p>尽量使用自增id作为主键索引,除非有业务场景需要用业务字段做主键并且索引数为1<br>引用网上查阅的资料</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">也就是说，自增主键的插入数据模式，正符合了我们前面提到的递增插入的场景。每次插入</span><br><span class="line">一条新记录，都是追加操作，都不涉及到挪动其他记录，也不会触发叶子节点的分裂。</span><br><span class="line">而有业务逻辑的字段做主键，则往往不容易保证有序插入，这样写数据成本相对较高。</span><br><span class="line"></span><br><span class="line">不选择主键做索引是有代价的</span><br></pre></td></tr></table></figure>
+
+<h3 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h3><p>联合索引的好处是可以不用回表,因为可以覆盖索引,就是说如果不差额外字段,联合索引<br>是可以不用回表的</p>
+<p>索引下推是在联合索引查询的时候,顺便过滤副索引的值,是mysql做得一个优化</p>
+<p>TODO 了解联合索引的数据结构</p>
+<p>建立联合索引的时候,如果有多个字段,如何做决定字段的先后顺序呢</p>
+<p>我觉得有两个原则<br>1.必传的字段放在前面<br>2.过滤量更大的字段放在前面<br>下面有个例子</p>
+<p>对数据库量级要有概念</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/26/mysql%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86/" data-id="ckyviijvv0006m1ca7cda8ios" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-nginx知识点梳理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/01/17/nginx%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/">nginx知识点梳理</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/01/17/nginx%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/" class="article-date">
+  <time datetime="2022-01-17T09:48:58.000Z" itemprop="datePublished">2022-01-17</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <h2 id="nginx配置文件结构"><a href="#nginx配置文件结构" class="headerlink" title="nginx配置文件结构"></a>nginx配置文件结构</h2><p><code>根文件 events http块 server块</code></p>
+<h2 id="配置nginx反向代理"><a href="#配置nginx反向代理" class="headerlink" title="配置nginx反向代理"></a>配置nginx反向代理</h2><h2 id="配置nginx负载均衡"><a href="#配置nginx负载均衡" class="headerlink" title="配置nginx负载均衡"></a>配置nginx负载均衡</h2><p>upstream myserver{<br>    server localhost:8000;<br>    server localhost:8001;<br>}</p>
+<p>location{<br>    proxy_pass <a target="_blank" rel="noopener" href="http://myserver/">http://myserver</a><br>}<br>轮询(默认方式)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/17/nginx%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/" data-id="ckyviijvw0007m1ca4wdv6469" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
+    <article id="post-Django-Logging" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+      
+
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/19/Django-Logging/">Django Logging</a>
+</h2>
+
+
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2021/11/19/Django-Logging/" class="article-date">
+  <time datetime="2021-11-19T03:16:41.000Z" itemprop="datePublished">2021-11-19</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+      
+      <p>logging是一个用得很频繁的功能，之前都是用的封装好的，并不了解内部运行的原理。现在梳理一下</p>
+<p>log等级包括：<br>DEBUG: Low level system information for debugging purposes<br>INFO: General system information<br>WARNING: Information describing a minor problem that has occurred.<br>ERROR: Information describing a major problem that has occurred.<br>CRITICAL: Information describing a critical problem that has occurred.</p>
+<p>logger&gt;handler<br>中间可以mix filter</p>
+<p>生成一个logger实例，__name__是指当前模块<br>logger = logging.getLogger(<strong>name</strong>)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line"></span><br><span class="line">LOGGING = &#123;</span><br><span class="line">    &#x27;version&#x27;: 1,</span><br><span class="line">    &#x27;disable_existing_loggers&#x27;: False,</span><br><span class="line">    &#x27;handlers&#x27;: &#123;</span><br><span class="line">        &#x27;console&#x27;: &#123;</span><br><span class="line">            &#x27;class&#x27;: &#x27;logging.StreamHandler&#x27;,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x27;root&#x27;: &#123;</span><br><span class="line">        &#x27;handlers&#x27;: [&#x27;console&#x27;],</span><br><span class="line">        &#x27;level&#x27;: &#x27;WARNING&#x27;,</span><br><span class="line">    &#125;,  # root是个根logger</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This configures the parent root logger to send messages with the WARNING level</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/19/Django-Logging/" data-id="ckyviijvi0000m1caeo8v4s6j" class="article-share-link">
+        Share
+      </a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+    
     <article id="post-general view set" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -98,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/17/general%20view%20set/" data-id="ckw0dy07i0002oyca2qj7g6xy" class="article-share-link">
+      <a data-url="http://example.com/2021/11/17/general%20view%20set/" data-id="ckyviijvs0003m1caeq4uc1ye" class="article-share-link">
         Share
       </a>
       
@@ -158,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%E5%AD%A6%E4%B9%A0/" data-id="ckw2vuohe0000ehca8nv5azlx" class="article-share-link">
+      <a data-url="http://example.com/2021/11/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%E5%AD%A6%E4%B9%A0/" data-id="ckyviijvz000am1ca53iz8z52" class="article-share-link">
         Share
       </a>
       
@@ -210,7 +383,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/15/gitflow/" data-id="ckw0dy07j0003oyca8v7p8t3c" class="article-share-link">
+      <a data-url="http://example.com/2021/11/15/gitflow/" data-id="ckyviijvt0004m1caftv0e23n" class="article-share-link">
         Share
       </a>
       
@@ -268,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/15/django%20url/" data-id="ckw0dy07f0001oycaef4j37mi" class="article-share-link">
+      <a data-url="http://example.com/2021/11/15/django%20url/" data-id="ckyviijvr0002m1cah8yadli5" class="article-share-link">
         Share
       </a>
       
@@ -319,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/15/testhexo/" data-id="ckw0dy07m0005oyca0re3de1l" class="article-share-link">
+      <a data-url="http://example.com/2021/11/15/testhexo/" data-id="ckyviijvx0008m1ca507d12z4" class="article-share-link">
         Share
       </a>
       
@@ -371,7 +544,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/15/celery/" data-id="ckw0dy0790000oycaefxj8ltv" class="article-share-link">
+      <a data-url="http://example.com/2021/11/15/celery/" data-id="ckyviijvp0001m1cag4npbly1" class="article-share-link">
         Share
       </a>
       
@@ -425,70 +598,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/10/18/%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7/" data-id="ckw0dy07v0006oyca05iz4zfz" class="article-share-link">
-        Share
-      </a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-    
-    <article id="post-hello-world" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-      
-
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/10/13/hello-world/">Hello World</a>
-</h2>
-
-
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/10/13/hello-world/" class="article-date">
-  <time datetime="2021-10-13T11:43:47.697Z" itemprop="datePublished">2021-10-13</time>
-</a>
-      
-    </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-      
-      <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/10/13/hello-world/" data-id="ckw0dy07k0004oyca3i30a40d" class="article-share-link">
+      <a data-url="http://example.com/2021/10/18/%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7/" data-id="ckyviijvy0009m1ca7v7w9g42" class="article-share-link">
         Share
       </a>
       
@@ -506,6 +616,10 @@
   
 
   
+  <nav class="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next</a>
+  </nav>
+  
 </section>
 </div>
 
@@ -521,7 +635,7 @@
 </ul>
     </div>
     <ul class="list-inline">
-      <li>Hexo &copy; 2021</li>
+      <li>Hexo &copy; 2022</li>
       
         <li>京ICP备17054916号-2</li>
       

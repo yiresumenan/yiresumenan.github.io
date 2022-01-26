@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    general viewset |
+    mysql索引知识 |
     
     Hexo</title>
   
@@ -30,7 +30,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-general view set" class="article article-type-post" itemscope
+  <article id="post-mysql索引知识" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  general viewset
+  mysql索引知识
 </h1>
 
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/11/17/general%20view%20set/" class="article-date">
-  <time datetime="2021-11-17T03:30:51.627Z" itemprop="datePublished">2021-11-17</time>
+      <a href="/2022/01/26/mysql%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time datetime="2022-01-26T09:38:38.000Z" itemprop="datePublished">2022-01-26</time>
 </a>
       
     </div>
@@ -66,11 +66,25 @@
       
       
       
-      <h3 id="筛选的时候传入的参数通过query-param传入"><a href="#筛选的时候传入的参数通过query-param传入" class="headerlink" title="筛选的时候传入的参数通过query param传入"></a>筛选的时候传入的参数通过query param传入</h3><h3 id="调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc"><a href="#调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc" class="headerlink" title="调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc"></a>调用rpc的连接数更大，可以走缓存，封装了rpc的都直接调用rpc</h3>
+      <h2 id="索引的数据类型"><a href="#索引的数据类型" class="headerlink" title="索引的数据类型"></a>索引的数据类型</h2><p>###b+树<br>innodb默认的索引类型,适合用于范围查询</p>
+<p>###hash索引<br>等值查询效率更高,但是无法进行order by</p>
+<p>大部分的数据库都是innodb引擎,但是有些文档说innodb是不支持这种索引<br>官方做了一些解释:<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-adaptive-hash.html">https://dev.mysql.com/doc/refman/5.7/en/innodb-adaptive-hash.html</a><br>innodb用的是一种适应性的哈希索引,根据是否可以优化查询自动将b+tree索引转化成hash索引<br>所以建索引的时候不用指定类型,建索引的语句如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table users</span><br><span class="line">add index `idx_name` (`name`);</span><br></pre></td></tr></table></figure>
+
+<h2 id="索引的创建经验"><a href="#索引的创建经验" class="headerlink" title="索引的创建经验"></a>索引的创建经验</h2><h3 id="自增id作为作为主键"><a href="#自增id作为作为主键" class="headerlink" title="自增id作为作为主键"></a>自增id作为作为主键</h3><p>尽量使用自增id作为主键索引,除非有业务场景需要用业务字段做主键并且索引数为1<br>引用网上查阅的资料</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">也就是说，自增主键的插入数据模式，正符合了我们前面提到的递增插入的场景。每次插入</span><br><span class="line">一条新记录，都是追加操作，都不涉及到挪动其他记录，也不会触发叶子节点的分裂。</span><br><span class="line">而有业务逻辑的字段做主键，则往往不容易保证有序插入，这样写数据成本相对较高。</span><br><span class="line"></span><br><span class="line">不选择主键做索引是有代价的</span><br></pre></td></tr></table></figure>
+
+<h3 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h3><p>联合索引的好处是可以不用回表,因为可以覆盖索引,就是说如果不差额外字段,联合索引<br>是可以不用回表的</p>
+<p>索引下推是在联合索引查询的时候,顺便过滤副索引的值,是mysql做得一个优化</p>
+<p>TODO 了解联合索引的数据结构</p>
+<p>建立联合索引的时候,如果有多个字段,如何做决定字段的先后顺序呢</p>
+<p>我觉得有两个原则<br>1.必传的字段放在前面<br>2.过滤量更大的字段放在前面<br>下面有个例子</p>
+<p>对数据库量级要有概念</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/17/general%20view%20set/" data-id="ckyviijvs0003m1caeq4uc1ye" class="article-share-link">
+      <a data-url="http://example.com/2022/01/26/mysql%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86/" data-id="ckyviijvv0006m1ca7cda8ios" class="article-share-link">
         Share
       </a>
       
@@ -82,19 +96,10 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/11/19/Django-Logging/" class="article-nav-link">
-    <strong class="article-nav-caption">Newer</strong>
-    <div class="article-nav-title">
-      
-      Django Logging
-      
-    </div>
-  </a>
   
-  
-  <a href="/2021/11/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
+  <a href="/2022/01/17/nginx%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">设计模式之美学习</div>
+    <div class="article-nav-title">nginx知识点梳理</div>
   </a>
   
 </nav>
