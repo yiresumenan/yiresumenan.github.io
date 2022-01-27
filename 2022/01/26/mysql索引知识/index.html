@@ -66,8 +66,8 @@
       
       
       
-      <h2 id="索引的数据类型"><a href="#索引的数据类型" class="headerlink" title="索引的数据类型"></a>索引的数据类型</h2><p>###b+树<br>innodb默认的索引类型,适合用于范围查询</p>
-<p>###hash索引<br>等值查询效率更高,但是无法进行order by</p>
+      <h2 id="索引的数据类型"><a href="#索引的数据类型" class="headerlink" title="索引的数据类型"></a>索引的数据类型</h2><h3 id="b-树"><a href="#b-树" class="headerlink" title="b+树"></a>b+树</h3><p>innodb默认的索引类型,适合用于范围查询</p>
+<h3 id="hash索引"><a href="#hash索引" class="headerlink" title="hash索引"></a>hash索引</h3><p>等值查询效率更高,但是无法进行order by</p>
 <p>大部分的数据库都是innodb引擎,但是有些文档说innodb是不支持这种索引<br>官方做了一些解释:<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-adaptive-hash.html">https://dev.mysql.com/doc/refman/5.7/en/innodb-adaptive-hash.html</a><br>innodb用的是一种适应性的哈希索引,根据是否可以优化查询自动将b+tree索引转化成hash索引<br>所以建索引的时候不用指定类型,建索引的语句如下</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table users</span><br><span class="line">add index `idx_name` (`name`);</span><br></pre></td></tr></table></figure>
 
@@ -79,12 +79,22 @@
 <p>TODO 了解联合索引的数据结构</p>
 <p>建立联合索引的时候,如果有多个字段,如何做决定字段的先后顺序呢</p>
 <p>我觉得有两个原则<br>1.必传的字段放在前面<br>2.过滤量更大的字段放在前面<br>下面有个例子</p>
-<p>对数据库量级要有概念</p>
+<p>![image-20220127100019058](/Users/alexander/Library/Application Support/typora-user-images/image-20220127100019058.png)</p>
+<p>explain 这个语句,发现查询是走到了索引的,但是因为索引筛选了之后还有70多万条数据需要过滤,这次查询则需要扫描70w条数据,实际执行时间的2s</p>
+<p>![image-20220127100610138](/Users/alexander/Library/Application Support/typora-user-images/image-20220127100610138.png)</p>
+<p>单单因为这个count就需要2s,那整个接口的响应时间也应该在2s以上,况且实际查数据的时候还要对created_at进行排序,时间应该比count还要长,在4s以上了.</p>
+<h5 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h5><p>其实问题就出在走了索引,但走了索引还需要扫描70w行数据这里,索引没有建对</p>
+<p>起初我以为建了(source type,manual result)这两个必传字段的联合索引之后,时间筛选作为一个辅助查询字段可以不建索引.</p>
+<p>但作为这个表的场景日常使用,就是要通过时间过滤出最新的数据来,所以这里应该直接建个created_at的单列索引都要比建联合索引快,因为时间才是必传筛选项.因为一周产生的量应该不会到十万的量级,可以考虑单独建个created_at索引或者以created_at为首(created_at,source type,manual result)的索引</p>
+<p>TODO 待测试</p>
+<pre><code>对数据库量级要有概念
+mysql的冷热数据
+</code></pre>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/01/26/mysql%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86/" data-id="ckyviijvv0006m1ca7cda8ios" class="article-share-link">
+      <a data-url="http://example.com/2022/01/26/mysql%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86/" data-id="ckyweb6fq0007r5ca7058hiet" class="article-share-link">
         Share
       </a>
       
