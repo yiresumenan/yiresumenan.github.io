@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    git flow 工作流 |
+    异步任务huey |
     
     Hexo</title>
   
@@ -30,7 +30,7 @@
 <body>
   <main class="content">
     <section class="outer">
-  <article id="post-gitflow" class="article article-type-post" itemscope
+  <article id="post-异步任务huey" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
       
 
 <h1 class="article-title" itemprop="name">
-  git flow 工作流
+  异步任务huey
 </h1>
 
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/11/15/gitflow/" class="article-date">
-  <time datetime="2021-11-15T08:41:41.556Z" itemprop="datePublished">2021-11-15</time>
+      <a href="/2022/02/18/%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1huey/" class="article-date">
+  <time datetime="2022-02-18T09:54:25.000Z" itemprop="datePublished">2022-02-18</time>
 </a>
       
     </div>
@@ -64,13 +64,34 @@
       
       
       
-      <p>人数较多的时候要用，人数少其实没有必要，这个东西不是绝对的</p>
-<p>极客时间 左耳朵耗子 20 Git协同工作流，你该怎么选</p>
+      <p>背景问题:<br>运营人员有的时候需要进行一些批量操作,时间耗时比较长,中间如果发新版本的话会导致操作中断</p>
+<p>解决方法就是将这些操作在后台进行异步执行,前端只需要告知需要执行的内容就行,只要告知这一步成功的话</p>
+<p>后续就算服务挂掉也不影响批量操作的执行</p>
+<p>解决方案:<br>celery<br>优势,在python中是一个知名度比较高的异步库,功能比较全</p>
+<p>缺点: 不支持redis集群,需要使用rabbitmq作为中间键</p>
+<p>huey<br>优势,轻量级的异步库,但是可能存在一些bug</p>
+<p>缺点: 支持redis集群</p>
+<p>经过实际考察,由于公司有现成的redis集群使用,为了方便,选择了第二种方式huey</p>
+<p>使用方式:<br>异步任务目录位置:  /工程目录/async_tasks</p>
+<p>添加任务时,在tasks.py文件里加入异步任务</p>
+<p>@huey.task()<br>def batch_reward(reward_list):<br>    # 防止长时间不连接django断连mysql<br>    close_old_connections()<br>    task = BatchReward(reward_list)<br>    task.main()<br>然后调用的时候就像普通函数一样调用这个被@huey.task()装饰的方法即可</p>
+<p>        batch_reward(reward_list)</p>
+<p>生产配置:<br>克隆一份相同的工程代码放在/data/svr/audio_ops_async_tasks/下</p>
+<p>配置supervisor,具体配置如下:</p>
+<p>[program:huey]<br>user = dev<br>directory = /data/svr/audio_ops_async_tasks/<br>command=/data/svr/venv_audio_ops/bin/python /data/svr/venv_audio_ops/lib/python3.7/site-packages/huey/bin/huey_consumer.py async_tasks.tasks.huey -l /data/svr/audio_ops_async_tasks/log/async_task.log<br>autostart=true<br>autorestart=true<br>stopasgroup=true<br>stdout_logfile=/data/svr/audio_ops_async_tasks/log/supervisord.stdout<br>stdout_logfile_maxbytes=100MB<br>stdout_logfile_backups=10<br>stdout_capture_maxbytes=100MB<br>stdout_events_enabled=false<br>启动supervisor之后,huey就可以作为一个常驻的异步任务系统了</p>
+<p>日志排查:</p>
+<p>/data/log/audio_ops/async_task.log</p>
+<p>TODO:<br>导出数据量大的时候会出现超时,这种时候也可以用异步导出</p>
+<p>后台将导出的文件导出到云服务器,然后告知前端完成进度,用户看到完成之后再从云服务器下载文件</p>
+<p>ps(遇到的问题):<br>在使用huey的时候遇到报错,经过排查发现是三方库的一个脚本不兼容阿里云的redis集群,导致阿里云报错,</p>
+<p>这个问题可以通过改三方包的方式解决但是不是长久之计,因为需要把三方包作为代码带到工程里面,所以很麻烦</p>
+<p>因此,给第三方包的作者提了一个bugfix,并被采纳: <a target="_blank" rel="noopener" href="https://github.com/coleifer/huey/issues/632">https://github.com/coleifer/huey/issues/632</a></p>
+<p>异步任务长时间不调用导致与数据库失联<br>需要再调用异步任务的时候<br>from django.db import close_old_connections<br>close_old_connections()</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/15/gitflow/" data-id="ckzs8kkge0005q2cah0a6008v" class="article-share-link">
+      <a data-url="http://example.com/2022/02/18/%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1huey/" data-id="ckzs8kkgl0009q2ca7idsbx4u" class="article-share-link">
         Share
       </a>
       
@@ -82,19 +103,10 @@
   
 <nav class="article-nav">
   
-  <a href="/2021/11/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
-    <strong class="article-nav-caption">Newer</strong>
-    <div class="article-nav-title">
-      
-      设计模式之美学习
-      
-    </div>
-  </a>
   
-  
-  <a href="/2021/11/15/django%20url/" class="article-nav-link">
+  <a href="/2022/02/18/vuetify%E6%A1%86%E6%9E%B6%E7%9A%84%E5%88%9D%E6%8E%A2/" class="article-nav-link">
     <strong class="article-nav-caption">Older</strong>
-    <div class="article-nav-title">django url 动态传参</div>
+    <div class="article-nav-title">vuetify框架的初探</div>
   </a>
   
 </nav>
